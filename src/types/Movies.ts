@@ -2,6 +2,7 @@ interface ReviewProps {
   id: number;
   userId: string;
   text: string;
+  rate: number;
 }
 
 interface MoviesProps {

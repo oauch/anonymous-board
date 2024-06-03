@@ -1,15 +1,21 @@
 import styled from "@emotion/styled";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { FaStar } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import MoviePost from "../components/MoviePost";
 import Container from "../components/common/Container";
 import { MoviesProps, ReviewProps } from "../types/Movies";
+
+const RATE = [1, 2, 3, 4, 5];
 
 function Detail() {
   const [data, setData] = useState<MoviesProps | null>(null);
   const [reviewText, setReviewText] = useState("");
   const [editReviewText, setEditReviewText] = useState("");
   const [editReviewId, setEditReviewId] = useState<number | null>(null);
+
+  const [rate, setRate] = useState(0);
+  const [editReviewRate, setEditReviewRate] = useState(0);
   const params = useParams();
 
   const generateUserId = () => {
@@ -28,15 +34,34 @@ function Detail() {
     setEditReviewText(e.target.value);
   };
 
+  const handleRateChange = (rate: number) => {
+    setRate(rate);
+  };
+
+  const handleEditRateChange = (rate: number) => {
+    setEditReviewRate(rate);
+  };
+
   const handleReviewSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!reviewText || !data) return;
+    if (!reviewText || !data || rate === 0) return;
 
     const newReview: ReviewProps = {
       id: Date.now(),
       text: reviewText,
       userId: userId,
+      rate: rate,
     };
+
+    // 기존 리뷰와 새로운 리뷰를 합친 리스트
+    const updatedReviews = [...(data.reviews || []), newReview];
+
+    // 새로운 리뷰가 추가된 후의 평균 평점 계산
+    const totalRate = updatedReviews.reduce(
+      (sum, review) => sum + review.rate,
+      0
+    );
+    const averageRate = Math.floor(totalRate / updatedReviews.length);
 
     try {
       const response = await fetch(
@@ -47,7 +72,8 @@ function Detail() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            reviews: [...(data.reviews || []), newReview],
+            rate: averageRate,
+            reviews: updatedReviews,
           }),
         }
       );
@@ -56,8 +82,54 @@ function Detail() {
         const updatedMovie = await response.json();
         setData(updatedMovie);
         setReviewText("");
+        setRate(0);
       } else {
         console.error("Failed to add review");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleReviewEdit = async (reviewId: number) => {
+    if (!data || !editReviewText || !editReviewRate) return;
+    const updatedReviews = (data.reviews || []).map((review) =>
+      review.id === reviewId
+        ? { ...review, text: editReviewText, rate: editReviewRate }
+        : review
+    );
+
+    // 새로운 리뷰가 추가된 후의 평균 평점 계산
+    const totalRate = updatedReviews.reduce(
+      (sum, review) => sum + review.rate,
+      0
+    );
+
+    const averageRate = Math.floor(totalRate / updatedReviews.length);
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/movies/${params.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            rate: averageRate,
+            reviews: updatedReviews,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const updatedMovie = await response.json();
+        setData(updatedMovie);
+        setEditReviewId(null);
+        setEditReviewText("");
+        setEditReviewRate(0);
+      } else {
+        console.error("Failed to edit review");
       }
     } catch (error) {
       console.error(error);
@@ -70,6 +142,14 @@ function Detail() {
       (review) => review.id !== reviewId
     );
 
+    // 새로운 리뷰가 추가된 후의 평균 평점 계산
+    const totalRate = updatedReviews.reduce(
+      (sum, review) => sum + review.rate,
+      0
+    );
+
+    const averageRate = Math.floor(totalRate / updatedReviews.length);
+
     try {
       const response = await fetch(
         `http://localhost:3001/movies/${params.id}`,
@@ -79,6 +159,7 @@ function Detail() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            rate: averageRate,
             reviews: updatedReviews,
           }),
         }
@@ -89,39 +170,6 @@ function Detail() {
         setData(updatedMovie);
       } else {
         console.error("Failed to delete review");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleReviewEdit = async (reviewId: number) => {
-    if (!data || !editReviewText) return;
-    const updatedReviews = (data.reviews || []).map((review) =>
-      review.id === reviewId ? { ...review, text: editReviewText } : review
-    );
-
-    try {
-      const response = await fetch(
-        `http://localhost:3001/movies/${params.id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            reviews: updatedReviews,
-          }),
-        }
-      );
-
-      if (response.ok) {
-        const updatedMovie = await response.json();
-        setData(updatedMovie);
-        setEditReviewId(null);
-        setEditReviewText("");
-      } else {
-        console.error("Failed to edit review");
       }
     } catch (error) {
       console.error(error);
@@ -148,6 +196,31 @@ function Detail() {
     fetchData();
   }, [params.id]);
 
+  useEffect(() => {
+    if (data && data.reviews.length > 0) {
+      const totalRate = data.reviews.reduce(
+        (sum, review) => sum + review.rate,
+        0
+      );
+      const averageRate = Math.floor(totalRate / data.reviews.length);
+
+      setData((prevData) => {
+        if (prevData) {
+          return { ...prevData, rate: averageRate };
+        }
+        return prevData;
+      });
+    }
+    if (data?.reviews.length === 0) {
+      setData((prevData) => {
+        if (prevData) {
+          return { ...prevData, rate: 0 };
+        }
+        return prevData;
+      });
+    }
+  }, [data?.reviews]);
+
   if (!data) return <>데이터가 존재하지 않습니다.</>;
 
   return (
@@ -155,11 +228,19 @@ function Detail() {
       <BackButton to={"/"}>뒤로가기</BackButton>
       <MovieWrapper>
         <MoviePost width={200} height={300} src={data.image} alt={data.name} />
-        <div>
+        <MovieInWrapper>
           <MovieTitle>{data.name}</MovieTitle>
-          <>{data.rate}</>
+          <RateWrapper>
+            {RATE.map((star) => (
+              <FaStar
+                key={star}
+                color={star <= data.rate ? "#ffc107" : "#e4e5e9"}
+                size={20}
+              />
+            ))}
+          </RateWrapper>
           <Description>{data.description}</Description>
-        </div>
+        </MovieInWrapper>
       </MovieWrapper>
       <ReviewWrapper>
         <ReviewForm onSubmit={handleReviewSubmit}>
@@ -168,6 +249,17 @@ function Detail() {
             onChange={handleReviewChange}
             placeholder="리뷰를 입력하세요"
           />
+          <StarRating>
+            {RATE.map((star) => (
+              <FaStar
+                key={star}
+                color={star <= rate ? "#ffc107" : "#e4e5e9"}
+                size={20}
+                onClick={() => handleRateChange(star)}
+                style={{ cursor: "pointer" }}
+              />
+            ))}
+          </StarRating>
           <SubmitButton type="submit">리뷰 작성</SubmitButton>
         </ReviewForm>
         {data.reviews && data.reviews.length > 0 ? (
@@ -180,19 +272,42 @@ function Detail() {
                       value={editReviewText}
                       onChange={handleEditReviewChange}
                     />
+                    <StarRating>
+                      {RATE.map((star) => (
+                        <FaStar
+                          key={star}
+                          color={star <= editReviewRate ? "#ffc107" : "#e4e5e9"}
+                          size={20}
+                          onClick={() => handleEditRateChange(star)}
+                          style={{ cursor: "pointer" }}
+                        />
+                      ))}
+                    </StarRating>
                     <SubmitButton onClick={() => handleReviewEdit(review.id)}>
                       수정 완료
                     </SubmitButton>
                   </>
                 ) : (
                   <>
-                    <ReviewText>{review.text}</ReviewText>
+                    <div style={{ display: "flex" }}>
+                      <StarRating>
+                        {RATE.map((star) => (
+                          <FaStar
+                            key={star}
+                            color={star <= review.rate ? "#ffc107" : "#e4e5e9"}
+                            size={10}
+                          />
+                        ))}
+                      </StarRating>
+                      <ReviewText>{review.text}</ReviewText>
+                    </div>
                     {review.userId === userId && (
                       <ButtonWrapper>
                         <EditButton
                           onClick={() => {
                             setEditReviewId(review.id);
                             setEditReviewText(review.text);
+                            setEditReviewRate(review.rate);
                           }}
                         >
                           수정
@@ -226,6 +341,13 @@ const MovieWrapper = styled.section`
   gap: 20px;
 `;
 
+const MovieInWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+`;
+
 const BackButton = styled(Link)`
   font-size: 1.5rem;
   color: #fff;
@@ -237,12 +359,19 @@ const MovieTitle = styled.h1`
   font-weight: 800;
 `;
 
+const RateWrapper = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 5px;
+`;
+
 const Description = styled.p`
   font-size: 1.5rem;
 `;
 
 const ReviewWrapper = styled.section`
-  width: 500px;
+  width: 600px;
   height: 500px;
   display: flex;
   flex-direction: column;
@@ -297,12 +426,17 @@ const ReviewInput = styled.input`
   margin-left: 10px;
 `;
 
+const StarRating = styled.div`
+  display: flex;
+  gap: 5px;
+  align-items: center;
+`;
+
 const SubmitButton = styled.button`
   background-color: #43a800;
   color: #fff;
   border: none;
   padding: 5px 10px;
-
   border-radius: 5px;
 `;
 

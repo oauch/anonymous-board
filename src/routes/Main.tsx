@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
 import { ChangeEvent, useEffect, useState } from "react";
+import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import MoviePost from "../components/MoviePost";
 import Container from "../components/common/Container";
+import { RATE } from "../constants/Rate";
 import { MoviesProps } from "../types/Movies";
 
 function Main() {
-  const [data, setData] = useState<MoviesProps[]>();
+  const [data, setData] = useState<MoviesProps[]>([]);
   const [searchVal, setSearchVal] = useState("");
   const [viewType, setViewType] = useState("list");
 
@@ -31,6 +33,10 @@ function Main() {
     fetchData();
   }, []);
 
+  const filterData = data.filter((val) =>
+    val.name.toLowerCase().includes(searchVal)
+  );
+
   return (
     <Container>
       <Title>영화 익명리뷰 게시판</Title>
@@ -44,33 +50,48 @@ function Main() {
         <ViewType onClick={() => setViewType("card")}>카드</ViewType>
       </ViewTypeWrapper>
       <MovieWrapper viewType={viewType}>
-        {data
-          ?.filter((val) => val.name.toLowerCase().includes(searchVal))
-          .map((val) =>
-            viewType === "list" ? (
-              <List key={val.id} to={`/${val.id}`}>
+        {filterData.map((val) =>
+          viewType === "list" ? (
+            <List key={val.id} to={`/${val.id}`}>
+              <MovieTitle>{val.name}</MovieTitle>
+              <RateWrapper>
+                {RATE.map((star) => (
+                  <FaStar
+                    key={star}
+                    color={star <= val.rate ? "#ffc107" : "#e4e5e9"}
+                    size={10}
+                  />
+                ))}
+              </RateWrapper>
+            </List>
+          ) : (
+            <Card key={val.id} to={`/${val.id}`}>
+              <PostWrapper
+                style={{
+                  display: "inline-block",
+                  width: "200px",
+                  height: "300px",
+                  borderRadius: "10px",
+                  overflow: "hidden",
+                }}
+              >
+                <MoviePost animation={true} src={val.image} alt={val.name} />
+              </PostWrapper>
+              <MovieInWrapper>
                 <MovieTitle>{val.name}</MovieTitle>
-              </List>
-            ) : (
-              <Card key={val.id} to={`/${val.id}`}>
-                <PostWrapper
-                  style={{
-                    display: "inline-block",
-                    width: "200px",
-                    height: "300px",
-                    borderRadius: "10px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <MoviePost animation={true} src={val.image} alt={val.name} />
-                </PostWrapper>
-                <div>
-                  <MovieTitle>{val.name}</MovieTitle>
-                  <MovieRate>{val.rate}</MovieRate>
-                </div>
-              </Card>
-            )
-          )}
+                <RateWrapper>
+                  {RATE.map((star) => (
+                    <FaStar
+                      key={star}
+                      color={star <= val.rate ? "#ffc107" : "#e4e5e9"}
+                      size={10}
+                    />
+                  ))}
+                </RateWrapper>
+              </MovieInWrapper>
+            </Card>
+          )
+        )}
       </MovieWrapper>
     </Container>
   );
@@ -130,20 +151,15 @@ const MovieWrapper = styled.div<{ viewType: string }>`
 const List = styled(Link)`
   width: 300px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
 
   padding: 10px;
 
   color: #fff;
+  text-align: center;
   text-decoration: none;
-
-  transition: all 0.2s ease-in-out;
-
-  &:hover {
-    opacity: 0.8;
-    scale: 1.1;
-  }
 `;
 
 const Card = styled(Link)`
@@ -165,8 +181,27 @@ const PostWrapper = styled.div`
   overflow: hidden;
 `;
 
+const MovieInWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const MovieTitle = styled.div`
   font-size: 2rem;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+    scale: 1.1;
+  }
+`;
+
+const RateWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 `;
 
 const MovieRate = styled.div``;
