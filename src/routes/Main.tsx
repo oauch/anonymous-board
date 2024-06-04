@@ -11,10 +11,23 @@ function Main() {
   const [data, setData] = useState<MoviesProps[]>([]);
   const [searchVal, setSearchVal] = useState("");
   const [viewType, setViewType] = useState("list");
+  const [sortOrder, setSortOrder] = useState("latest");
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchVal(e.target.value);
   };
+
+  const handleSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSortOrder(e.target.value);
+  };
+
+  const sortedData = data
+    .filter((val) => val.name.toLowerCase().includes(searchVal))
+    .sort((a, b) => {
+      const dateA = new Date(a.registeredDate ?? "").getTime();
+      const dateB = new Date(b.registeredDate ?? "").getTime();
+      return sortOrder === "latest" ? dateB - dateA : dateA - dateB;
+    });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,21 +46,6 @@ function Main() {
     fetchData();
   }, []);
 
-  const filterData = data.filter((val) =>
-    val.name.toLowerCase().includes(searchVal)
-  );
-
-  // 오래된 순
-  console.log(filterData.map((val) => val.registeredDate).sort());
-
-  // 최신 순
-  console.log(
-    filterData
-      .map((val) => val.registeredDate)
-      .sort()
-      .reverse()
-  );
-
   return (
     <Container>
       <Title>영화 익명리뷰 게시판</Title>
@@ -59,12 +57,16 @@ function Main() {
       <Link to={"/post"} style={{ color: "#fff" }}>
         영화 등록
       </Link>
+      <select onChange={handleSortChange}>
+        <option value="latest">최신순</option>
+        <option value="oldest">오래된 순</option>
+      </select>
       <ViewTypeWrapper>
         <ViewType onClick={() => setViewType("list")}>리스트</ViewType>
         <ViewType onClick={() => setViewType("card")}>카드</ViewType>
       </ViewTypeWrapper>
       <MovieWrapper viewType={viewType}>
-        {filterData.map((val) =>
+        {sortedData.map((val) =>
           viewType === "list" ? (
             <List key={val.id} to={`/${val.id}`}>
               <MovieTitle>{val.name}</MovieTitle>

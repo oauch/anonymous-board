@@ -45,7 +45,7 @@ function Post() {
       image: movieImg,
       description: description,
       country: country,
-      registeredDate: date.toLocaleString(),
+      registeredDate: date.toISOString(),
       rate: 0,
       reviews: [],
     };

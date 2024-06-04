@@ -5,25 +5,18 @@
       "name": "인셉션",
       "image": "https://i.namu.wiki/i/em8w-RInxkJS0TDN8JvzDvF6bjNryJ66Zkv-CUfcBVnlEf5B5VaBckR_9pjdqG12gVfTbKHrli2XVgY2Qs7zWbQT0kNXEnVki8DCgDucFzmq9c8FcywV5wLHzOMAsSQ1vgOQqxgqI5iZGfd_f7RbSD0yxkKv3lp0Ns2lF6seYUo.webp",
       "description": "꿈을 공유하는 기술을 통해 기업 비밀을 훔치는 도둑이 C.E.O.의 마음에 아이디어를 심는 반대 작업을 맡게 된다.",
-      "rate": 4,
+      "rate": 5,
       "reviews": [
         {
           "id": 1717427054062,
           "text": "하이용",
           "userId": "user-1717399849165",
           "rate": 5
-        },
-        {
-          "id": 1717502073998,
-          "text": "좋네요",
-          "userId": "user-1717399849165",
-          "rate": 3
         }
       ],
-      "likes": [
-        "user-1717399849165"
-      ],
-      "userId": "user-1717399849165"
+      "likes": ["user-1717399849165"],
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T17:15:23.000Z"
     },
     {
       "id": "2",
@@ -41,11 +34,12 @@
         {
           "id": 1717424159117,
           "text": "테러",
-          "userId": "user-1717399849166",
+          "userId": "user-1717399849165",
           "rate": 3
         }
       ],
-      "userId": "user-1717399849162"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T11:42:17.000Z"
     },
     {
       "id": "3",
@@ -54,7 +48,8 @@
       "description": "탐험가 팀이 인류의 생존을 보장하기 위해 우주에서 웜홀을 통해 여행한다.",
       "rate": null,
       "reviews": [],
-      "userId": "user-1717399849165"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T14:13:48.000Z"
     },
     {
       "id": "4",
@@ -63,7 +58,8 @@
       "description": "컴퓨터 해커가 미스터리한 반역자들로부터 자신의 현실의 진정한 본질과 그 통제자들과의 전쟁에서의 역할을 배우게 된다.",
       "rate": 0,
       "reviews": [],
-      "userId": "user-1717399849161"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T15:24:15.000Z"
     },
     {
       "id": "5",
@@ -72,7 +68,8 @@
       "description": "알라바마 출신 IQ 75의 남자 시각에서 케네디와 존슨 대통령 시절, 베트남 전쟁, 워터게이트 사건 등 역사적 사건들이 펼쳐진다.",
       "rate": 0,
       "reviews": [],
-      "userId": "user-1717399849165"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T18:34:56.000Z"
     },
     {
       "id": "6",
@@ -81,7 +78,8 @@
       "description": "무고하게 살인죄로 기소된 한 은행가가 감옥에서 보낸 20년간의 삶을 그린다.",
       "rate": 0,
       "reviews": [],
-      "userId": "user-1717399849166"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T10:11:09.000Z"
     },
     {
       "id": "7",
@@ -90,7 +88,8 @@
       "description": "로마 장군이 배신을 당하고 노예로 전락하여 복수의 길을 걷게 된다.",
       "rate": 0,
       "reviews": [],
-      "userId": "user-1717399849165"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T20:47:22.000Z"
     },
     {
       "id": "8",
@@ -99,7 +98,8 @@
       "description": "정신적으로 불안정한 보험 조사관이 비누 제조업자와 함께 비밀적인 싸움 클럽을 결성한다.",
       "rate": 0,
       "reviews": [],
-      "userId": "user-1717399849165"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T13:55:33.000Z"
     },
     {
       "id": "9",
@@ -108,97 +108,88 @@
       "description": "대서양 횡단 중 침몰한 호화 여객선 타이타닉 호를 배경으로 한 러브 스토리.",
       "rate": 0,
       "reviews": [],
-      "userId": "user-1717399849165"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T19:21:45.000Z"
     },
     {
       "id": "10",
-      "name": "라라랜드",
-      "image": "https://i.namu.wiki/i/em8w-RInxkJS0TDN8JvzDhVXFkI3eABMqUEIGBYh5eLngoJzmOYjt0qc2FqkqkljGYBJmqMVan986hK6-vq7hm8Y1u4SWfgJ9-OwngH1Ojmx7Ivvx03fdtk0dgDO3vYjOHy0MqSJL7R3ywkwR67UsvHoEl4HCc-eF11E8VTAaLc.webp",
-      "description": "꿈을 쫓는 뮤지션과 배우의 사랑과 꿈을 그린 뮤지컬 영화.",
-      "rate": 0,
-      "reviews": [],
-      "userId": "user-1717399849165"
-    },
-    {
-      "id": "11",
       "name": "아바타",
       "image": "https://i.namu.wiki/i/em8w-RInxkJS0TDN8JvzDtu_1xYBEu3nwZaD-qVbuIjZOGOS6Lb7IEt6ig4ONgf4_y1ueDRnXYS2tu7saRWg5-0uqkQdqjtkVF6D17SbPuxT1o4QWf4q39Odrt_FloZ_S94CkbaH9k0Ekn5kcc6t4nod0C_UlNw5vjRPSUfRpSg.webp",
       "description": "외계 행성 판도라에 사는 원주민들과의 갈등을 그린 영화.",
       "rate": 0,
       "reviews": [],
-      "userId": "user-1717399849165"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T16:06:57.000Z"
     },
     {
-      "id": "12",
+      "id": "11",
       "name": "반지의 제왕: 반지 원정대",
       "image": "https://m.media-amazon.com/images/I/51Qvs9i5a%2BL._AC_.jpg",
       "description": "호빗과 그의 동료들이 어둠의 군주 사우론을 무찌르기 위해 여정을 떠나는 이야기.",
       "rate": 0,
       "reviews": [],
-      "userId": "user-1717399849165"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T09:33:21.000Z"
     },
     {
-      "id": "13",
+      "id": "12",
       "name": "스타워즈: 새로운 희망",
       "image": "https://i.namu.wiki/i/em8w-RInxkJS0TDN8JvzDrF1c_R0sYzsIPNIlkwVUuTkvJl7K5PMoiISzVmFPP75i0I7ih4_rBECNDjotDt3ihzq8WxbKPedxWiw-KgnAWgr3CHHqvTwzXkGYXBvaN8dtWFjTDhjUk6DnjEy0RGNplQCWzTxZ2sXfcVFZ4FpCp4.webp",
       "description": "제국에 맞서 싸우는 반란군과 루크 스카이워커의 모험을 그린 영화.",
       "rate": 0,
       "reviews": [],
-      "userId": "user-1717399849165"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T12:47:29.000Z"
+    },
+    {
+      "id": "13",
+      "name": "해리 포터와 마법사의 돌",
+      "image": "https://m.media-amazon.com/images/I/51qlgJ6ZojL._AC_.jpg",
+      "description": "젊은 마법사 해리 포터가 호그와트 마법 학교에서 첫 해를 보내며",
+      "rate": 0,
+      "reviews": [],
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T08:56:55.000Z"
     },
     {
       "id": "14",
-      "name": "해리 포터와 마법사의 돌",
-      "image": "https://m.media-amazon.com/images/I/51qlgJ6ZojL._AC_.jpg",
-      "description": "젊은 마법사 해리 포터가 호그와트 마법 학교에서 첫 해를 보내며 겪는 모험.",
-      "rate": 0,
-      "reviews": [],
-      "userId": "user-1717399849165"
-    },
-    {
-      "id": "15",
       "name": "토이 스토리",
       "image": "https://i.namu.wiki/i/em8w-RInxkJS0TDN8JvzDiz6FH1N8RurjyxmYcNoPoZtYunBchEvFcbE2lyKAzkF-GvCeJMJL6v6WY6KMhAHBs-qg-CY66fprI1UQGBSa2iGBsb43HApntx7b4n4dvqTX8hNliMUZUNOr93eVPd8EKJZr1QxaTXIZw9hT40GP1Q.webp",
       "description": "장난감들이 주인공인 애니메이션으로, 장난감들이 실제로 살아있는 모습을 그린 이야기.",
       "rate": 0,
       "reviews": [],
-      "userId": "user-1717399849165"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T13:56:47.000Z"
     },
     {
-      "id": "16",
+      "id": "15",
       "name": "쥬라기 공원",
       "image": "https://i.namu.wiki/i/em8w-RInxkJS0TDN8JvzDp6Kk5bRQj1OgWlRneMMY4g1djsOh76LHFxGc3nnXOyZAaSCYAFbvHUlmV7gccWHB-L78Zy_iHDY5MTzsZdVJZQyKJ8TlqsuXnk6xBwex8kyD3y5bQ6cwxln5N7XPkFDJTnMW51ubOkK2Cx28El6nXk.webp",
       "description": "유전자 공학으로 부활한 공룡들이 살아있는 테마파크에서 탈출하면서 벌어지는 이야기.",
       "rate": 0,
       "reviews": [],
-      "userId": "user-1717399849165"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T15:08:32.000Z"
     },
     {
-      "id": "17",
+      "id": "16",
       "name": "가디언즈 오브 갤럭시",
       "image": "https://m.media-amazon.com/images/I/61OUGpUfAyL._AC_SY679_.jpg",
       "description": "은하계를 지키기 위해 힘을 합친 여러 영웅들의 모험을 그린 영화.",
       "rate": 0,
       "reviews": [],
-      "userId": "user-1717399849165"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T00:12:04.000Z"
     },
     {
-      "id": "18",
+      "id": "17",
       "name": "아이언맨",
       "image": "https://i.namu.wiki/i/em8w-RInxkJS0TDN8JvzDjeuLraTpfHrGURLOKvjwjUkW5pagwSLgNUck1LB6069m6BOZQH26nHPqCpk2YAEHiWlyBr5JjROdsLY4r0sAwjyiEheRgDfqyL1JidNfKlA4Z5ERWPQjyPhf2NoUivbXJlb3SPb14w6bYB1TwLiQLI.webp",
       "description": "부유한 사업가가 강력한 아이언맨 슈트를 만들어 악과 싸우는 이야기.",
       "rate": 0,
       "reviews": [],
-      "userId": "user-1717399849165"
-    },
-    {
-      "id": "19",
-      "name": "캡틴 아메리카: 퍼스트 어벤저",
-      "image": "https://i.namu.wiki/i/6nR1PhH45Cwf4oTLZDAf015GR-akhRohmV7y6KoGckOLa8YzP9fLzziHCsphHtwLzQM_mOWQryQ1nNjo9nYpmg.webp",
-      "description": "제2차 세계 대전 동안 슈퍼 솔져가 되어 악에 맞서는 이야기를 그린 영화.",
-      "rate": 0,
-      "reviews": [],
-      "userId": "user-1717399849165"
+      "userId": "user-1717399849165",
+      "registeredDate": "2024-06-04T21:18:33.000Z"
     }
   ]
 }
