@@ -12,6 +12,7 @@ function Main() {
   const [searchVal, setSearchVal] = useState("");
   const [viewType, setViewType] = useState("list");
   const [sortOrder, setSortOrder] = useState("latest");
+  const [country, setCountry] = useState("all");
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchVal(e.target.value);
@@ -21,7 +22,22 @@ function Main() {
     setSortOrder(e.target.value);
   };
 
-  const sortedData = data
+  const handleCountry = (e: ChangeEvent<HTMLSelectElement>) => {
+    setCountry(e.target.value);
+  };
+
+  // 필터 (나라별)
+  const filteredData = data.filter((val) => {
+    const includesSearch = val.name
+      .toLowerCase()
+      .includes(searchVal.toLowerCase());
+    const matchesCountry = country === "all" ? true : val.country === country;
+
+    return includesSearch && matchesCountry;
+  });
+
+  // 정렬 (시간순)
+  const sortedData = filteredData
     .filter((val) => val.name.toLowerCase().includes(searchVal))
     .sort((a, b) => {
       const dateA = new Date(a.registeredDate ?? "").getTime();
@@ -60,6 +76,11 @@ function Main() {
       <select onChange={handleSortChange}>
         <option value="latest">최신순</option>
         <option value="oldest">오래된 순</option>
+      </select>
+      <select onChange={handleCountry}>
+        <option value="all">모두</option>
+        <option value="korea">한국 영화</option>
+        <option value="foreign">외국 영화</option>
       </select>
       <ViewTypeWrapper>
         <ViewType onClick={() => setViewType("list")}>리스트</ViewType>

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MoviesProps } from "../types/Movies";
 
 function Post() {
@@ -71,6 +71,7 @@ function Post() {
 
   return (
     <MovieForm onSubmit={handleMovieSubmit}>
+      <Link to={"/"}>뒤로 가기</Link>
       <Label htmlFor="movieName">영화 제목</Label>
       <Input
         id="movieName"
