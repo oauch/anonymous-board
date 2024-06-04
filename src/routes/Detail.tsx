@@ -14,7 +14,7 @@ function Detail() {
   const [movieName, setMovieName] = useState("");
   const [movieImg, setMovieImg] = useState("");
   const [description, setDescription] = useState("");
-  const [country, setCountry] = useState(data?.country);
+  const [country, setCountry] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
   const [reviewText, setReviewText] = useState("");
@@ -321,7 +321,7 @@ function Detail() {
                 <input value={movieName} onChange={handleMovieName} />
                 <input value={movieImg} onChange={handleMovieImg} />
                 <input value={description} onChange={handleDescription} />
-                <select onChange={handleCountry}>
+                <select value={country} onChange={handleCountry}>
                   <option value="korea">한국 영화</option>
                   <option value="foreign">외국 영화</option>
                 </select>
@@ -364,6 +364,7 @@ function Detail() {
                         setMovieName(data.name);
                         setMovieImg(data.image);
                         setDescription(data.description);
+                        setCountry(data.country);
                         setIsEditing(true);
                       }}
                     >

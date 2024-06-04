@@ -11,8 +11,8 @@ interface MoviesProps {
   name: string;
   image: string;
   description: string;
+  country: string;
   rate?: number;
-  country?: string;
   registeredDate?: string;
   likes?: string[];
   reviews?: ReviewProps[];
