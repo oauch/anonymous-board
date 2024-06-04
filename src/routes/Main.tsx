@@ -37,6 +37,17 @@ function Main() {
     val.name.toLowerCase().includes(searchVal)
   );
 
+  // 오래된 순
+  console.log(filterData.map((val) => val.registeredDate).sort());
+
+  // 최신 순
+  console.log(
+    filterData
+      .map((val) => val.registeredDate)
+      .sort()
+      .reverse()
+  );
+
   return (
     <Container>
       <Title>영화 익명리뷰 게시판</Title>
@@ -45,6 +56,9 @@ function Main() {
         onChange={handleSearch}
         placeholder="영화 제목을 입력해주세요."
       />
+      <Link to={"/post"} style={{ color: "#fff" }}>
+        영화 등록
+      </Link>
       <ViewTypeWrapper>
         <ViewType onClick={() => setViewType("list")}>리스트</ViewType>
         <ViewType onClick={() => setViewType("card")}>카드</ViewType>
@@ -58,7 +72,7 @@ function Main() {
                 {RATE.map((star) => (
                   <FaStar
                     key={star}
-                    color={star <= val.rate ? "#ffc107" : "#e4e5e9"}
+                    color={star <= (val.rate ?? 0) ? "#ffc107" : "#e4e5e9"}
                     size={10}
                   />
                 ))}
@@ -83,7 +97,7 @@ function Main() {
                   {RATE.map((star) => (
                     <FaStar
                       key={star}
-                      color={star <= val.rate ? "#ffc107" : "#e4e5e9"}
+                      color={star <= (val.rate ?? 0) ? "#ffc107" : "#e4e5e9"}
                       size={10}
                     />
                   ))}
@@ -203,5 +217,3 @@ const RateWrapper = styled.div`
   align-items: center;
   gap: 5px;
 `;
-
-const MovieRate = styled.div``;

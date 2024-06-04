@@ -1,21 +1,31 @@
 import styled from "@emotion/styled";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { BiSolidLike } from "react-icons/bi";
 import { FaStar } from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import MoviePost from "../components/MoviePost";
 import Container from "../components/common/Container";
+import { RATE } from "../constants/Rate";
 import { MoviesProps, ReviewProps } from "../types/Movies";
-
-const RATE = [1, 2, 3, 4, 5];
 
 function Detail() {
   const [data, setData] = useState<MoviesProps | null>(null);
+
+  const [movieName, setMovieName] = useState("");
+  const [movieImg, setMovieImg] = useState("");
+  const [description, setDescription] = useState("");
+  const [country, setCountry] = useState(data?.country);
+  const [isEditing, setIsEditing] = useState(false);
+
   const [reviewText, setReviewText] = useState("");
   const [editReviewText, setEditReviewText] = useState("");
   const [editReviewId, setEditReviewId] = useState<number | null>(null);
-
   const [rate, setRate] = useState(0);
   const [editReviewRate, setEditReviewRate] = useState(0);
+
+  const navigate = useNavigate();
+
+  const [like, setLike] = useState(false);
   const params = useParams();
 
   const generateUserId = () => {
@@ -25,6 +35,19 @@ function Detail() {
   };
 
   const userId = localStorage.getItem("userId") || generateUserId();
+
+  const handleMovieName = (e: ChangeEvent<HTMLInputElement>) => {
+    setMovieName(e.target.value);
+  };
+  const handleMovieImg = (e: ChangeEvent<HTMLInputElement>) => {
+    setMovieImg(e.target.value);
+  };
+  const handleDescription = (e: ChangeEvent<HTMLInputElement>) => {
+    setDescription(e.target.value);
+  };
+  const handleCountry = (e: ChangeEvent<HTMLSelectElement>) => {
+    setCountry(e.target.value);
+  };
 
   const handleReviewChange = (e: ChangeEvent<HTMLInputElement>) => {
     setReviewText(e.target.value);
@@ -91,6 +114,44 @@ function Detail() {
     }
   };
 
+  const handleMovieEdit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!data) return;
+    if (!movieName || !movieImg || !description)
+      return alert("비어있는 입력 칸이 있습니다.");
+
+    const editMovie: MoviesProps = {
+      ...data,
+      name: movieName,
+      image: movieImg,
+      description: description,
+      country: country,
+    };
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/movies/${params.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(editMovie),
+        }
+      );
+
+      if (response.ok) {
+        setIsEditing(false);
+        const updatedMovie = await response.json();
+        setData(updatedMovie);
+      } else {
+        console.error("Failed to add review");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleReviewEdit = async (reviewId: number) => {
     if (!data || !editReviewText || !editReviewRate) return;
     const updatedReviews = (data.reviews || []).map((review) =>
@@ -130,6 +191,31 @@ function Detail() {
         setEditReviewRate(0);
       } else {
         console.error("Failed to edit review");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleMovieDelete = async () => {
+    if (!data) return;
+    if (!window.confirm("삭제하시겠습니까?")) return;
+    try {
+      const response = await fetch(
+        `http://localhost:3001/movies/${params.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        const updatedMovie = await response.json();
+        setData(updatedMovie);
+        navigate("/");
+      } else {
+        console.error("Failed to delete review");
       }
     } catch (error) {
       console.error(error);
@@ -197,7 +283,7 @@ function Detail() {
   }, [params.id]);
 
   useEffect(() => {
-    if (data && data.reviews.length > 0) {
+    if (data && data.reviews && data.reviews.length > 0) {
       const totalRate = data.reviews.reduce(
         (sum, review) => sum + review.rate,
         0
@@ -211,7 +297,7 @@ function Detail() {
         return prevData;
       });
     }
-    if (data?.reviews.length === 0) {
+    if (data?.reviews && data.reviews.length === 0) {
       setData((prevData) => {
         if (prevData) {
           return { ...prevData, rate: 0 };
@@ -229,17 +315,70 @@ function Detail() {
       <MovieWrapper>
         <MoviePost width={200} height={300} src={data.image} alt={data.name} />
         <MovieInWrapper>
-          <MovieTitle>{data.name}</MovieTitle>
-          <RateWrapper>
-            {RATE.map((star) => (
-              <FaStar
-                key={star}
-                color={star <= data.rate ? "#ffc107" : "#e4e5e9"}
-                size={20}
-              />
-            ))}
-          </RateWrapper>
-          <Description>{data.description}</Description>
+          <TitleWrapper>
+            {isEditing ? (
+              <EditWrapper>
+                <input value={movieName} onChange={handleMovieName} />
+                <input value={movieImg} onChange={handleMovieImg} />
+                <input value={description} onChange={handleDescription} />
+                <select onChange={handleCountry}>
+                  <option value="korea">한국 영화</option>
+                  <option value="foreign">외국 영화</option>
+                </select>
+              </EditWrapper>
+            ) : (
+              <>
+                <MovieTitle>{data.name}</MovieTitle>
+                <BiSolidLike
+                  color={like ? "#43a800" : "#e4e5e9"}
+                  size={20}
+                  onClick={() => setLike((prev) => !prev)}
+                  style={{ cursor: "pointer" }}
+                />
+              </>
+            )}
+            {data.userId === userId && (
+              <>
+                {isEditing ? (
+                  <>
+                    <EditButton onClick={handleMovieEdit}>수정 완료</EditButton>
+                    <DeleteButton onClick={() => setIsEditing(false)}>
+                      취소
+                    </DeleteButton>
+                  </>
+                ) : (
+                  <>
+                    <RateWrapper>
+                      {RATE.map((star) => (
+                        <FaStar
+                          key={star}
+                          color={
+                            star <= (data.rate ?? 0) ? "#ffc107" : "#e4e5e9"
+                          }
+                          size={20}
+                        />
+                      ))}
+                    </RateWrapper>
+                    <EditButton
+                      onClick={() => {
+                        setMovieName(data.name);
+                        setMovieImg(data.image);
+                        setDescription(data.description);
+                        setIsEditing(true);
+                      }}
+                    >
+                      수정
+                    </EditButton>
+                    <DeleteButton onClick={handleMovieDelete}>
+                      삭제
+                    </DeleteButton>
+                  </>
+                )}
+              </>
+            )}
+          </TitleWrapper>
+
+          {!isEditing && <Description>{data.description}</Description>}
         </MovieInWrapper>
       </MovieWrapper>
       <ReviewWrapper>
@@ -348,6 +487,12 @@ const MovieInWrapper = styled.div`
   gap: 20px;
 `;
 
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
 const BackButton = styled(Link)`
   font-size: 1.5rem;
   color: #fff;
@@ -446,4 +591,10 @@ const Empty = styled.p`
   align-items: center;
   margin-top: 50px;
   font-size: 1.5rem;
+`;
+
+const EditWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;

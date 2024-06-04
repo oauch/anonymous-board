@@ -6,12 +6,16 @@ interface ReviewProps {
 }
 
 interface MoviesProps {
-  id: number;
+  id?: string;
+  userId?: string;
   name: string;
   image: string;
   description: string;
-  rate: number;
-  reviews: ReviewProps[];
+  rate?: number;
+  country?: string;
+  registeredDate?: string;
+  likes?: string[];
+  reviews?: ReviewProps[];
 }
 
 export type { MoviesProps, ReviewProps };
