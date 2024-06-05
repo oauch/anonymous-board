@@ -68,7 +68,7 @@ function Detail() {
               <>
                 <MovieTitle>{data.name}</MovieTitle>
                 <BiSolidLike
-                  color={like ? COLORS.BROWN : COLORS.EMPTY_ICON}
+                  color={like ? COLORS.EDIT : COLORS.EMPTY_ICON}
                   size={20}
                   onClick={handleToggleLike}
                   style={{ cursor: "pointer" }}
