@@ -5,6 +5,11 @@ interface ReviewProps {
   rate: number;
 }
 
+interface LikeProps {
+  userId: string;
+  like: boolean;
+}
+
 interface MoviesProps {
   id?: string;
   userId?: string;
@@ -14,8 +19,8 @@ interface MoviesProps {
   country: string;
   rate?: number;
   registeredDate?: string;
-  likes?: string[];
+  likes?: LikeProps[];
   reviews?: ReviewProps[];
 }
 
-export type { MoviesProps, ReviewProps };
+export type { LikeProps, MoviesProps, ReviewProps };

@@ -41,6 +41,7 @@ function Detail() {
     handleReviewDelete,
     handleReviewEdit,
     handleEditReviewChange,
+    handleToggleLike,
   } = useDetail();
 
   if (!data) return <>데이터가 존재하지 않습니다.</>;
@@ -68,11 +69,20 @@ function Detail() {
                 <BiSolidLike
                   color={like ? "#43a800" : "#e4e5e9"}
                   size={20}
-                  onClick={() => setLike((prev) => !prev)}
+                  onClick={handleToggleLike}
                   style={{ cursor: "pointer" }}
                 />
               </>
             )}
+            <RateWrapper>
+              {RATE.map((star) => (
+                <FaStar
+                  key={star}
+                  color={star <= (data.rate ?? 0) ? "#ffc107" : "#e4e5e9"}
+                  size={20}
+                />
+              ))}
+            </RateWrapper>
             {data.userId === userId && (
               <>
                 {isEditing ? (
@@ -84,17 +94,6 @@ function Detail() {
                   </>
                 ) : (
                   <>
-                    <RateWrapper>
-                      {RATE.map((star) => (
-                        <FaStar
-                          key={star}
-                          color={
-                            star <= (data.rate ?? 0) ? "#ffc107" : "#e4e5e9"
-                          }
-                          size={20}
-                        />
-                      ))}
-                    </RateWrapper>
                     <EditButton onClick={handleMovieEditInput}>수정</EditButton>
                     <DeleteButton onClick={handleMovieDelete}>
                       삭제

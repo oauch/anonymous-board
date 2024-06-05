@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { MoviesProps, ReviewProps } from "../types/Movies";
+import { LikeProps, MoviesProps, ReviewProps } from "../types/Movies";
 import { userId } from "../utils/userId";
 import useMovieInfo from "./useMovieInfo";
 
@@ -46,6 +46,41 @@ function useDetail() {
 
   const handleEditRateChange = (rate: number) => {
     setEditReviewRate(rate);
+  };
+
+  const handleToggleLike = async () => {
+    if (!data) return;
+
+    const updatedLikes = (data.likes || []).map((likeObj) =>
+      likeObj.userId === userId ? { ...likeObj, like: !like } : likeObj
+    );
+
+    if (!updatedLikes.some((likeObj) => likeObj.userId === userId)) {
+      updatedLikes.push({ userId, like: true });
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:3001/movies/${params.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ likes: updatedLikes }),
+        }
+      );
+
+      if (response.ok) {
+        const updatedMovie = await response.json();
+        setData(updatedMovie);
+        setLike(!like);
+      } else {
+        console.error("Failed to update like status");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   /**
@@ -293,6 +328,10 @@ function useDetail() {
         );
         const data = await response.json();
         setData(data);
+        const userLike = data.likes.find(
+          (likeObj: LikeProps) => likeObj.userId === userId
+        );
+        setLike(userLike ? userLike.like : false);
       } catch (error) {
         console.error(error);
       }
@@ -358,6 +397,7 @@ function useDetail() {
     handleReviewDelete,
     rate,
     handleReviewSubmit,
+    handleToggleLike,
   };
 }
 
