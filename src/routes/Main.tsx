@@ -1,66 +1,21 @@
 import styled from "@emotion/styled";
-import { ChangeEvent, useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import MoviePost from "../components/MoviePost";
 import Container from "../components/common/Container";
 import { RATE } from "../constants/Rate";
-import { MoviesProps } from "../types/Movies";
+import useMain from "../hooks/useMain";
 
 function Main() {
-  const [data, setData] = useState<MoviesProps[]>([]);
-  const [searchVal, setSearchVal] = useState("");
-  const [viewType, setViewType] = useState("list");
-  const [sortOrder, setSortOrder] = useState("latest");
-  const [country, setCountry] = useState("all");
-
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchVal(e.target.value);
-  };
-
-  const handleSortChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSortOrder(e.target.value);
-  };
-
-  const handleCountry = (e: ChangeEvent<HTMLSelectElement>) => {
-    setCountry(e.target.value);
-  };
-
-  // 필터 (나라별)
-  const filteredData = data.filter((val) => {
-    const includesSearch = val.name
-      .toLowerCase()
-      .includes(searchVal.toLowerCase());
-    const matchesCountry = country === "all" ? true : val.country === country;
-
-    return includesSearch && matchesCountry;
-  });
-
-  // 정렬 (시간순)
-  const sortedData = filteredData
-    .filter((val) => val.name.toLowerCase().includes(searchVal))
-    .sort((a, b) => {
-      const dateA = new Date(a.registeredDate ?? "").getTime();
-      const dateB = new Date(b.registeredDate ?? "").getTime();
-      return sortOrder === "latest" ? dateB - dateA : dateA - dateB;
-    });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/movies", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        });
-        const data = await response.json();
-        setData(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const {
+    handleCountry,
+    handleSearch,
+    handleSortChange,
+    searchVal,
+    setViewType,
+    sortedData,
+    viewType,
+  } = useMain();
 
   return (
     <Container>
@@ -70,18 +25,18 @@ function Main() {
         onChange={handleSearch}
         placeholder="영화 제목을 입력해주세요."
       />
-      <Link to={"/post"} style={{ color: "#fff" }}>
-        영화 등록
-      </Link>
-      <select onChange={handleSortChange}>
-        <option value="latest">최신순</option>
-        <option value="oldest">오래된 순</option>
-      </select>
-      <select onChange={handleCountry}>
-        <option value="all">모두</option>
-        <option value="korea">한국 영화</option>
-        <option value="foreign">외국 영화</option>
-      </select>
+      <SelectWrapper>
+        <Select onChange={handleSortChange}>
+          <option value="latest">최신순</option>
+          <option value="oldest">오래된 순</option>
+        </Select>
+        <Select onChange={handleCountry}>
+          <option value="all">모두</option>
+          <option value="korea">한국 영화</option>
+          <option value="foreign">외국 영화</option>
+        </Select>
+      </SelectWrapper>
+      <PostMovie to={"/post"}>영화 등록</PostMovie>
       <ViewTypeWrapper>
         <ViewType onClick={() => setViewType("list")}>리스트</ViewType>
         <ViewType onClick={() => setViewType("card")}>카드</ViewType>
@@ -146,6 +101,39 @@ const Search = styled.input`
   border-radius: 5px;
 
   padding: 5px 10px;
+`;
+
+const SelectWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+`;
+
+const Select = styled.select`
+  border-radius: 4px;
+  background-color: #f8f8f8;
+
+  color: #333;
+  outline: none;
+
+  &:focus {
+    border-color: #43a800;
+  }
+`;
+
+const PostMovie = styled(Link)`
+  all: unset;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  padding: 5px 10px;
+  font-size: 1.5rem;
+
+  cursor: pointer;
+  border-radius: 10px;
+  color: #000;
+  background-color: #94ff4d;
 `;
 
 const ViewTypeWrapper = styled.div`
