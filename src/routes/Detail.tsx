@@ -109,51 +109,53 @@ function Detail() {
           <Rating size={20} dataRate={rate} onClick={handleRateChange} />
           <SubmitButton type="submit">리뷰 작성</SubmitButton>
         </ReviewForm>
-        {data.reviews && data.reviews.length > 0 ? (
-          data.reviews
-            .map((review) => (
-              <ReviewWrapper key={review.id}>
-                {editReviewId === review.id ? (
-                  <>
-                    <ReviewInput
-                      value={editReviewText}
-                      onChange={handleEditReviewChange}
-                    />
-                    <Rating
-                      size={20}
-                      dataRate={editReviewRate}
-                      onClick={handleEditRateChange}
-                    />
-                    <SubmitButton onClick={() => handleReviewEdit(review.id)}>
-                      수정 완료
-                    </SubmitButton>
-                  </>
-                ) : (
-                  <>
-                    <Review>
-                      <Rating dataRate={review.rate} />
-                      <ReviewText>{review.text}</ReviewText>
-                    </Review>
-                    {review.userId === userId && (
-                      <ButtonWrapper>
-                        <EditButton onClick={() => handleReviewValue(review)}>
-                          수정
-                        </EditButton>
-                        <DeleteButton
-                          onClick={() => handleReviewDelete(review.id)}
-                        >
-                          삭제
-                        </DeleteButton>
-                      </ButtonWrapper>
-                    )}
-                  </>
-                )}
-              </ReviewWrapper>
-            ))
-            .reverse()
-        ) : (
-          <Empty>리뷰가 없습니다.</Empty>
-        )}
+        <ReviewWrapper>
+          {data.reviews && data.reviews.length > 0 ? (
+            data.reviews
+              .map((review) => (
+                <ReviewInWrapper key={review.id}>
+                  {editReviewId === review.id ? (
+                    <>
+                      <ReviewInput
+                        value={editReviewText}
+                        onChange={handleEditReviewChange}
+                      />
+                      <Rating
+                        size={20}
+                        dataRate={editReviewRate}
+                        onClick={handleEditRateChange}
+                      />
+                      <SubmitButton onClick={() => handleReviewEdit(review.id)}>
+                        수정 완료
+                      </SubmitButton>
+                    </>
+                  ) : (
+                    <>
+                      <Review>
+                        <Rating dataRate={review.rate} />
+                        <ReviewText>{review.text}</ReviewText>
+                      </Review>
+                      {review.userId === userId && (
+                        <ButtonWrapper>
+                          <EditButton onClick={() => handleReviewValue(review)}>
+                            수정
+                          </EditButton>
+                          <DeleteButton
+                            onClick={() => handleReviewDelete(review.id)}
+                          >
+                            삭제
+                          </DeleteButton>
+                        </ButtonWrapper>
+                      )}
+                    </>
+                  )}
+                </ReviewInWrapper>
+              ))
+              .reverse()
+          ) : (
+            <Empty>리뷰가 없습니다.</Empty>
+          )}
+        </ReviewWrapper>
       </ReviewContainer>
     </Container>
   );
@@ -187,12 +189,15 @@ const MovieTitle = styled.h1`
 `;
 
 const Description = styled.p`
+  width: 400px;
   font-size: 1.5rem;
+  line-height: 180%;
+  white-space: break-spaces;
 `;
 
 const ReviewContainer = styled.section`
   width: 600px;
-  height: 500px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -203,10 +208,23 @@ const Review = styled.div`
 `;
 
 const ReviewWrapper = styled.div`
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 30px;
+
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const ReviewInWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
 `;
 
 const ReviewText = styled.span`

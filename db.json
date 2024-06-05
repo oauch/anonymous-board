@@ -256,7 +256,7 @@
       "userId": "user-1717399849165",
       "name": "외계인 1부",
       "image": "https://i.namu.wiki/i/eaSCVNr18TCjmaXBLPRBvubbMUN5D1TSWk-mLFXs0F0Ijh0EPFapjL7Z5jbO1XiO8ql_UVX5fwUGjQrP357hSimhsbu7PRR8gDDmA5qPXA88IwPeKwwrgfLcWrplQLTOqRb5OoOBfJIaTC9riVotYA.webp",
-      "description": "고려 말 소문 속의 신검을 차지하려는 도사들과 2022년 인간의 몸 속에 수감된 외계인 죄수를 쫓는 이들 사이에 시간의 문이 열리며 펼쳐지는 이야기를 그린 영화",
+      "description": "고려 말 소문 속의 신검을 차지하려는 도사들과 2022년 인간의 몸 속에 수감된 외계인 죄수를 쫓는 이들 사이에 시간의 문이 열리며 펼쳐지는 이야기를 그린 영화입니다.",
       "country": "korea",
       "registeredDate": "2024-06-05T12:53:03.736Z",
       "rate": 4,
@@ -280,10 +280,10 @@
           "rate": 5
         },
         {
-          "id": 1717569205881,
-          "text": "댓글 테스트 입니다 좋습니다",
-          "userId": "user-1717399849165",
-          "rate": 5
+          "id": 1717575077136,
+          "text": "테스트입니다",
+          "userId": "user-1717574099642",
+          "rate": 3
         }
       ],
       "likes": [
@@ -293,6 +293,10 @@
         },
         {
           "userId": "user-1717399849166",
+          "like": true
+        },
+        {
+          "userId": "user-1717574099642",
           "like": true
         }
       ]
@@ -721,7 +725,31 @@
           "id": 1717574117212,
           "text": "22세기까지",
           "userId": "user-1717574099642",
+          "rate": 5
+        },
+        {
+          "id": 1717574695589,
+          "text": "23세기까지",
+          "userId": "user-1717574099642",
           "rate": 4
+        },
+        {
+          "id": 1717574775413,
+          "text": "스크롤 테스트합니다",
+          "userId": "user-1717574099642",
+          "rate": 5
+        },
+        {
+          "id": 1717574781213,
+          "text": "스크롤 테스트합니다스크롤 테스트합니다",
+          "userId": "user-1717574099642",
+          "rate": 5
+        },
+        {
+          "id": 1717574782993,
+          "text": "스크롤 테스트합니다",
+          "userId": "user-1717574099642",
+          "rate": 5
         }
       ],
       "likes": [
@@ -729,6 +757,30 @@
           "userId": "user-1717399849165",
           "like": true
         },
+        {
+          "userId": "user-1717574099642",
+          "like": true
+        }
+      ]
+    },
+    {
+      "id": "1717574312799",
+      "userId": "user-1717574099642",
+      "name": "나는 내일, 어제의 너와 만난다",
+      "image": "https://i.namu.wiki/i/lAukPkZH3_rWSFVMXnUsTcxwrKOzaLc7u42YTxA6dhZOOaxlq6DQeJ5FIFefqACyTDo03eRq9jaQ5JsUaK-iyMl_rL2s61YZMJA1_nCX3rFZnMupbWfdtR1sCavRH09wwUL4clKa-jlbunx98Cs78Q.webp",
+      "description": "타카토시는 지하철을 타고 가던 중 우연히 마주친 에미에게 첫눈에 반하고, 같은 역에 내린다면 말을 걸기로 결심한다. 운명처럼 같은 역에 내리자 타카토시는 에미에게 말을 걸고, 이후 점차 가까워진 두 사람은 연인 사이가 된다.",
+      "country": "foreign",
+      "registeredDate": "2024-06-05T07:58:32.479Z",
+      "rate": 5,
+      "reviews": [
+        {
+          "id": 1717574512087,
+          "text": "슬퍼요",
+          "userId": "user-1717574099642",
+          "rate": 5
+        }
+      ],
+      "likes": [
         {
           "userId": "user-1717574099642",
           "like": true
