@@ -15,7 +15,9 @@
           "rate": 5
         }
       ],
-      "likes": ["user-1717399849165"],
+      "likes": [
+        "user-1717399849165"
+      ],
       "userId": "user-1717399849165",
       "registeredDate": "2024-06-04T17:15:23.000Z"
     },
@@ -48,19 +50,39 @@
       "name": "인터스텔라",
       "image": "https://m.media-amazon.com/images/I/91kFYg4fX3L._AC_SY679_.jpg",
       "description": "탐험가 팀이 인류의 생존을 보장하기 위해 우주에서 웜홀을 통해 여행한다.",
-      "rate": null,
+      "rate": 3,
       "country": "foreign",
-      "reviews": [],
+      "reviews": [
+        {
+          "id": 1717569000966,
+          "text": "영화가 너무 길어요",
+          "userId": "user-1717399849165",
+          "rate": 3
+        }
+      ],
       "userId": "user-1717399849165",
-      "registeredDate": "2024-06-04T14:13:48.000Z"
+      "registeredDate": "2024-06-04T14:13:48.000Z",
+      "likes": [
+        {
+          "userId": "user-1717399849165",
+          "like": true
+        }
+      ]
     },
     {
       "id": "4",
       "name": "매트릭스",
       "image": "https://m.media-amazon.com/images/I/51EG732BV3L._AC_.jpg",
       "description": "컴퓨터 해커가 미스터리한 반역자들로부터 자신의 현실의 진정한 본질과 그 통제자들과의 전쟁에서의 역할을 배우게 된다.",
-      "rate": 0,
-      "reviews": [],
+      "rate": 3,
+      "reviews": [
+        {
+          "id": 1717569293626,
+          "text": "침대",
+          "userId": "user-1717399849165",
+          "rate": 3
+        }
+      ],
       "country": "foreign",
       "userId": "user-1717399849165",
       "registeredDate": "2024-06-04T15:24:15.000Z"
@@ -70,8 +92,15 @@
       "name": "포레스트 검프",
       "image": "https://i.namu.wiki/i/em8w-RInxkJS0TDN8JvzDnQoSrZUSw2VPE0mw6NYLynpd9SZQ877SmCIVNxIzDBeeN4wVs_wMRC51ijoxulfu7VcIh402rOzerdoVO50Zi9QD7voU9a1xSJMEc86S7gsxh8B7pF0pMGiAuI7EPoT7bgzreTsQCwjMoi5SUs-7Sk.webp",
       "description": "알라바마 출신 IQ 75의 남자 시각에서 케네디와 존슨 대통령 시절, 베트남 전쟁, 워터게이트 사건 등 역사적 사건들이 펼쳐진다.",
-      "rate": 0,
-      "reviews": [],
+      "rate": 2,
+      "reviews": [
+        {
+          "id": 1717569312198,
+          "text": "검프",
+          "userId": "user-1717399849165",
+          "rate": 2
+        }
+      ],
       "country": "foreign",
       "userId": "user-1717399849165",
       "registeredDate": "2024-06-04T18:34:56.000Z"
@@ -81,8 +110,15 @@
       "name": "쇼생크 탈출",
       "image": "https://m.media-amazon.com/images/I/51NiGlapXlL._AC_.jpg",
       "description": "무고하게 살인죄로 기소된 한 은행가가 감옥에서 보낸 20년간의 삶을 그린다.",
-      "rate": 0,
-      "reviews": [],
+      "rate": 1,
+      "reviews": [
+        {
+          "id": 1717569323631,
+          "text": "생크 탈출하기",
+          "userId": "user-1717399849165",
+          "rate": 1
+        }
+      ],
       "country": "foreign",
       "userId": "user-1717399849165",
       "registeredDate": "2024-06-04T10:11:09.000Z"
@@ -188,12 +224,12 @@
     },
     {
       "id": "16",
-      "name": "가디언즈 오브 갤럭시",
+      "name": "아바타",
       "image": "https://m.media-amazon.com/images/I/61OUGpUfAyL._AC_SY679_.jpg",
-      "description": "은하계를 지키기 위해 힘을 합친 여러 영웅들의 모험을 그린 영화.",
+      "description": "아바타들",
       "rate": 0,
       "reviews": [],
-      "country": "foreign",
+      "country": "korea",
       "userId": "user-1717399849165",
       "registeredDate": "2024-06-04T00:12:04.000Z"
     },
@@ -234,6 +270,18 @@
         {
           "id": 1717562296673,
           "text": "천둥 쏘는 사람",
+          "userId": "user-1717399849165",
+          "rate": 5
+        },
+        {
+          "id": 1717569195855,
+          "text": "테스트 입니다",
+          "userId": "user-1717399849165",
+          "rate": 5
+        },
+        {
+          "id": 1717569205881,
+          "text": "댓글 테스트 입니다 좋습니다",
           "userId": "user-1717399849165",
           "rate": 5
         }
@@ -573,11 +621,18 @@
       "userId": "user-1717399849165",
       "name": "바람",
       "image": "https://i.namu.wiki/i/hQEz11GHxMCaVKxrCLWPQvqXA2u2eVY6CZ1j5ndargAsbiRVjp1d5T_wzj9LF_u_H2I6ZF74HiyfujFLv4-fB6vQSLfRPuQYExkKzukkguGHUQmgiObjMu_2FgoD-qh-YfYA2WiQSGzX1nh_0NH8tw.webp",
-      "description": "엄격한 가정 교육을 받으며 자란 짱구는 멋들어진 학창 시절을 보내고 싶어 형과 누나와는 다르게 명문고에 진학하지 않고, 부산 일대에서 악명이 높은 광춘상고에 진학한다. 그러던 어느 날, 학교 폭력에 연루되면서 짱구 일행은 유치장에 갇히게 된다.",
+      "description": "엄격한 가정 교육을 받으며 자란 짱구는 멋들어진 학창 시절을 보내고 싶어 형과 누나와는 다르게 명문고에 진학하지 않고, 부산 일대에서 악명이 높은 광춘상고에 진학한다. 그러던 어느 날, 학교 폭력에 연루되면서 짱구 일행은 유치장",
       "country": "korea",
       "registeredDate": "2024-06-05T04:33:47.495Z",
-      "rate": 0,
-      "reviews": []
+      "rate": 4,
+      "reviews": [
+        {
+          "id": 1717569367500,
+          "text": "바람 바람 바람",
+          "userId": "user-1717399849165",
+          "rate": 4
+        }
+      ]
     },
     {
       "id": "1717562049602",
@@ -643,6 +698,30 @@
           "text": "색 다른 세계",
           "userId": "user-1717399849166",
           "rate": 5
+        },
+        {
+          "id": 1717569225452,
+          "text": "도전하는 세계",
+          "userId": "user-1717399849165",
+          "rate": 5
+        },
+        {
+          "id": 1717569228668,
+          "text": "신기한 세계",
+          "userId": "user-1717399849165",
+          "rate": 5
+        },
+        {
+          "id": 1717569233303,
+          "text": "21세기",
+          "userId": "user-1717399849165",
+          "rate": 5
+        }
+      ],
+      "likes": [
+        {
+          "userId": "user-1717399849165",
+          "like": true
         }
       ]
     }

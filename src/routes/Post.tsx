@@ -1,7 +1,10 @@
 import styled from "@emotion/styled";
-import Container from "../components/common/Container";
-import HomeButton from "../components/common/HomeButton";
+import Container from "../components/Container";
+import HomeButton from "../components/HomeButton";
+import Options from "../components/Options";
+import { OPTIONS_COUNTRY } from "../constants/Option";
 import usePost from "../hooks/usePost";
+import { COLORS } from "../styles/colors";
 
 function Post() {
   const {
@@ -42,8 +45,7 @@ function Post() {
         />
         <Label>영화 국적</Label>
         <Select onChange={handleCountry}>
-          <option value="korea">한국 영화</option>
-          <option value="foreign">외국 영화</option>
+          <Options data={OPTIONS_COUNTRY.slice(1, 3)} />
         </Select>
         <SubmitButton type="submit">영화 등록</SubmitButton>
       </MovieForm>
@@ -55,12 +57,11 @@ export default Post;
 
 const MovieForm = styled.form`
   width: 500px;
-  padding: 20px;
   margin: 0 auto;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-content: center;
-
   gap: 20px;
 `;
 
@@ -69,12 +70,13 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  border-radius: 5px;
   padding: 5px 10px;
+  border-radius: 5px;
 `;
 
 const TextArea = styled.textarea`
   height: 200px;
+  border-radius: 5px;
 `;
 
 const Select = styled.select`
@@ -82,5 +84,5 @@ const Select = styled.select`
 `;
 
 const SubmitButton = styled.button`
-  color: #fff;
+  color: ${COLORS.WHITE};
 `;

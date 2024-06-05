@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { LikeProps, MoviesProps, ReviewProps } from "../types/Movies";
+import { MoviesProps, ReviewProps } from "../types/Movies";
 import { userId } from "../utils/userId";
 import useMovieInfo from "./useMovieInfo";
 
@@ -21,13 +21,13 @@ function useDetail() {
   } = useMovieInfo("");
 
   const [data, setData] = useState<MoviesProps | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
   const [reviewText, setReviewText] = useState("");
   const [editReviewText, setEditReviewText] = useState("");
   const [editReviewId, setEditReviewId] = useState<number | null>(null);
   const [rate, setRate] = useState(0);
   const [editReviewRate, setEditReviewRate] = useState(0);
   const [like, setLike] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   const navigate = useNavigate();
   const params = useParams();
@@ -267,6 +267,7 @@ function useDetail() {
    */
   const handleReviewDelete = async (reviewId: number) => {
     if (!data) return;
+    if (!window.confirm("삭제하시겠습니까?")) return;
     const updatedReviews = (data.reviews || []).filter(
       (review) => review.id !== reviewId
     );
@@ -306,7 +307,7 @@ function useDetail() {
   };
 
   // 영화 수정하기 버튼 누르면, input 값 세팅
-  const handleMovieEditInput = () => {
+  const handleMovieValue = () => {
     if (data) {
       setMovieName(data.name);
       setMovieImg(data.image);
@@ -314,6 +315,12 @@ function useDetail() {
       setCountry(data.country);
       setIsEditing(true);
     }
+  };
+
+  const handleReviewValue = (review: ReviewProps) => {
+    setEditReviewId(review.id);
+    setEditReviewText(review.text);
+    setEditReviewRate(review.rate);
   };
 
   useEffect(() => {
@@ -328,9 +335,9 @@ function useDetail() {
         );
         const data = await response.json();
         setData(data);
-        const userLike = data.likes.find(
-          (likeObj: LikeProps) => likeObj.userId === userId
-        );
+        const userLike = data.likes
+          ? data.likes.find((val: { userId: string }) => val.userId === userId)
+          : null;
         setLike(userLike ? userLike.like : false);
       } catch (error) {
         console.error(error);
@@ -377,10 +384,9 @@ function useDetail() {
     handleDescription,
     handleCountry,
     like,
-    setLike,
     handleMovieEdit,
     setIsEditing,
-    handleMovieEditInput,
+    handleMovieValue,
     handleMovieDelete,
     reviewText,
     handleReviewChange,
@@ -398,6 +404,7 @@ function useDetail() {
     rate,
     handleReviewSubmit,
     handleToggleLike,
+    handleReviewValue,
   };
 }
 
